@@ -3,5 +3,6 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    path("",views.index),
+    path("",views.main),
+    path("/<int:year>/<int:team>/",views.detail,name='detail'),
 ]

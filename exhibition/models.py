@@ -6,15 +6,15 @@ class Year(models.Model):
 
 class Team(models.Model):
     year = models.ForeignKey(Year, on_delete = models.CASCADE)
-    team = models.CharField (max_length=50)
-    p_name = models.TextField()
+    team = models.CharField (max_length=50) #팀명
+    p_name = models.TextField() #프로젝트 이름
     
 
 class Member(models.Model):
-    team = models.ForeignKey(Team, on_delete= models.CASCADE)
-    name = models.CharField(max_length= 50)
-    m_id =  models.IntegerField()  #나이 primary_Key 이슈로 id를 m_id로 변경
-    major = models.CharField(max_length= 50)
+    team = models.ForeignKey(Team, on_delete= models.CASCADE) #팀
+    name = models.CharField(max_length= 50) #이름
+    m_id =  models.IntegerField()  #나이 primary_Key 이슈로 id를 m_id로 변경/ 학번
+    major = models.CharField(max_length= 50) #전공
 
 class Info(models.Model):
     team = models.ForeignKey(Team, on_delete = models.CASCADE)
