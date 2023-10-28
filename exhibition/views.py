@@ -16,8 +16,8 @@ def main(request):
     #main에 접근했을때 제일 먼저 보이는 page가 11기 관련이도록
     year='11기'
     try:
-        team=get_object_or_404(Team,year=year)
-        serializer=TeamSerializer(team)
+        teamlist=get_object_or_404(Team,year=year)
+        serializer=TeamSerializer(teamlist,many=True)
         return Response(serializer.data)
 
     except Team.DoesNotExist:
