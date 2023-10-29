@@ -12,9 +12,8 @@ from .models import Year, Team, Member, Info, Photo
 from .serializers import YearSerializer, TeamSerializer, MemberSerializer,InfoSerializer,PhotoSerializer
 
 
-def main(request):
+def main(request,year='11기'):
     #main에 접근했을때 제일 먼저 보이는 page가 11기 관련이도록
-    year='11기'
     try:
         teamlist=get_object_or_404(Team,year=year)
         serializer=TeamSerializer(teamlist,many=True)
