@@ -15,7 +15,7 @@ from .serializers import YearSerializer, TeamSerializer, MemberSerializer,InfoSe
 def main(request,year=11):
     #main에 접근했을때 제일 먼저 보이는 page가 11기 관련이도록
     try:
-        year_str=str(year)+'기'
+        year_str=str(year)
         year_obj=get_object_or_404(Year, year=year_str)
         teamlist=get_list_or_404(Team,year=year_obj)
         serializer=TeamSerializer(teamlist,many=True)
@@ -26,7 +26,7 @@ def main(request,year=11):
 
 def detail(request, year, team):
     try:
-        year_str=str(year)+'기'
+        year_str=str(year)
         year_obj=get_object_or_404(Year, year=year_str)
         teamlist=get_list_or_404(Team,year=year_obj)
 
