@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #app
     'exhibition',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
