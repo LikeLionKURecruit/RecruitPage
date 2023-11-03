@@ -28,7 +28,7 @@ def detail(request, year, team):
     try:
         year_str=str(year)
         year_obj=get_object_or_404(Year, year=year_str)
-        teamlist=get_list_or_404(Team,year=year_obj)
+        teamlist=get_list_or_404(Team,year=year_obj, team = team)
 
         team_obj=None
 
@@ -40,15 +40,15 @@ def detail(request, year, team):
         #memberlist=get_object_or_404(Member, team=team_obj)
         memberlist = Member.objects.filter(team=team_obj)
 
-        photo_serializer=PhotoSerializer(photolist).data
+        photo_serializer=PhotoSerializer(photolist, many = True).data
         member_serializer=MemberSerializer(memberlist,many=True).data
 
         response_data={
-            'photos': photo_serializer,
+            'photos': photo_serializer, 
             'members':member_serializer,
         }
 
-        return JsonResponse(response_data, safe = False)
+        return JsonResponse(response_data, safe = False,json_dumps_params={'ensure_ascii': False} )
     
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
