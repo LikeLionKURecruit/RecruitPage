@@ -19,7 +19,7 @@ def main(request,year=11):
         year_obj=get_object_or_404(Year, year=year_str)
         teamlist=get_list_or_404(Team,year=year_obj)
         serializer=TeamSerializer(teamlist,many=True)
-        return JsonResponse(serializer.data)
+        return JsonResponse(serializer.data, safe = False, json_dumps_params={'ensure_ascii': False})
 
     except Team.DoesNotExist:
         return JsonResponse({'message': '해당 정보를 찾을 수 없습니다.'}, status=404)
@@ -36,18 +36,19 @@ def detail(request, year, team):
             if team_check.team==team:
                 team_obj=team_check
 
-        photolist=get_object_or_404(Photo, team=team_obj)
-        memberlist=get_object_or_404(Member, team=team_obj)
-        
-        photo_serializer=PhotoSerializer(photolist,many=True)
-        member_serializer=MemberSerializer(memberlist,many=True)
+        photolist=Photo.objects.filter(team=team_obj)
+        #memberlist=get_object_or_404(Member, team=team_obj)
+        memberlist = Member.objects.filter(team=team_obj)
+
+        photo_serializer=PhotoSerializer(photolist).data
+        member_serializer=MemberSerializer(memberlist,many=True).data
 
         response_data={
             'photos': photo_serializer,
             'members':member_serializer,
         }
 
-        return JsonResponse(response_data)
+        return JsonResponse(response_data, safe = False)
     
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)

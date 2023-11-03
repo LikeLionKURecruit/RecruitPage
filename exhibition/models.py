@@ -26,7 +26,7 @@ class Info(models.Model):
     # main_technology = models.ForeignKey(Technology, on_delete = models.CASCADE)
 
 class Photo(models.Model):
-    team_id = models.ForeignKey(Team, on_delete = models.CASCADE)
+    team= models.ForeignKey(Team, on_delete = models.CASCADE)
     index = models.IntegerField()
     photo = models.ImageField(upload_to="")     #여기에 기능설명 및 프로젝트에 대한 설명들이 스크린 샷으로 들어갈 예정
 
